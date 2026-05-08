@@ -300,21 +300,49 @@ public extension OptionalEnumWrapper {
   
   @inline(__always)
   var tier: Powertrain? {
-    return self.__tier.value
+    return { () -> Powertrain? in
+      if bridge.has_value_std__optional_Powertrain_(self.__tier) {
+        let __unwrapped = bridge.get_std__optional_Powertrain_(self.__tier)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
   
   @inline(__always)
   var region: Powertrain? {
-    return self.__region.value
+    return { () -> Powertrain? in
+      if bridge.has_value_std__optional_Powertrain_(self.__region) {
+        let __unwrapped = bridge.get_std__optional_Powertrain_(self.__region)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
   
   @inline(__always)
   var stage: Powertrain? {
-    return self.__stage.value
+    return { () -> Powertrain? in
+      if bridge.has_value_std__optional_Powertrain_(self.__stage) {
+        let __unwrapped = bridge.get_std__optional_Powertrain_(self.__stage)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
   
   @inline(__always)
   var tone: Powertrain? {
-    return self.__tone.value
+    return { () -> Powertrain? in
+      if bridge.has_value_std__optional_Powertrain_(self.__tone) {
+        let __unwrapped = bridge.get_std__optional_Powertrain_(self.__tone)
+        return __unwrapped
+      } else {
+        return nil
+      }
+    }()
   }
 }

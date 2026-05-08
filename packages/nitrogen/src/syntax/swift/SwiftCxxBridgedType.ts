@@ -467,9 +467,16 @@ export class SwiftCxxBridgedType implements BridgedType<'swift', 'c++'> {
             }
             // TODO: Remove this check for booleans/doubles once https://github.com/swiftlang/swift/issues/84848 is fixed.
             //       Right now, optionals of doubles or booleans (and who knows what else?) fail to compile when `.value` is used.
+            //       String-union enums and structs are also routed here: under -O, projecting `.value`
+            //       on a wide Optional<Struct> containing multiple distinct string-union enum fields
+            //       reads garbage tag bytes (verified empirically — see repro/optional-struct-bridge).
+            //       The bridge.has_value_*/get_* path goes through stable shims and dodges the bug.
             const swiftBug84848Workaround =
               optional.wrappingType.kind === 'boolean' ||
-              optional.wrappingType.kind === 'number'
+              optional.wrappingType.kind === 'number' ||
+              optional.wrappingType.kind === 'struct' ||
+              (optional.wrappingType.kind === 'enum' &&
+                getTypeAs(optional.wrappingType, EnumType).jsType === 'union')
             if (!swiftBug84848Workaround) {
               if (!wrapping.needsSpecialHandling) {
                 return `${cppParameterName}.value`

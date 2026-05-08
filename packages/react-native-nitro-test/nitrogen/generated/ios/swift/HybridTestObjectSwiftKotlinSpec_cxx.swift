@@ -350,7 +350,14 @@ open class HybridTestObjectSwiftKotlinSpec_cxx {
     }
     @inline(__always)
     set {
-      self.__implementation.optionalEnum = newValue.value
+      self.__implementation.optionalEnum = { () -> Powertrain? in
+        if bridge.has_value_std__optional_Powertrain_(newValue) {
+          let __unwrapped = bridge.get_std__optional_Powertrain_(newValue)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }()
     }
   }
   
@@ -1093,7 +1100,14 @@ open class HybridTestObjectSwiftKotlinSpec_cxx {
   @inline(__always)
   public final func tryOptionalEnum(value: bridge.std__optional_Powertrain_) -> bridge.Result_std__optional_Powertrain__ {
     do {
-      let __result = try self.__implementation.tryOptionalEnum(value: value.value)
+      let __result = try self.__implementation.tryOptionalEnum(value: { () -> Powertrain? in
+        if bridge.has_value_std__optional_Powertrain_(value) {
+          let __unwrapped = bridge.get_std__optional_Powertrain_(value)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = { () -> bridge.std__optional_Powertrain_ in
         if let __unwrappedValue = __result {
           return bridge.create_std__optional_Powertrain_(__unwrappedValue)
@@ -1965,7 +1979,14 @@ open class HybridTestObjectSwiftKotlinSpec_cxx {
   @inline(__always)
   public final func tryOptionalEnumStruct(value: bridge.std__optional_OptionalEnumWrapper_) -> bridge.Result_std__optional_OptionalEnumWrapper__ {
     do {
-      let __result = try self.__implementation.tryOptionalEnumStruct(value: value.value)
+      let __result = try self.__implementation.tryOptionalEnumStruct(value: { () -> OptionalEnumWrapper? in
+        if bridge.has_value_std__optional_OptionalEnumWrapper_(value) {
+          let __unwrapped = bridge.get_std__optional_OptionalEnumWrapper_(value)
+          return __unwrapped
+        } else {
+          return nil
+        }
+      }())
       let __resultCpp = { () -> bridge.std__optional_OptionalEnumWrapper_ in
         if let __unwrappedValue = __result {
           return bridge.create_std__optional_OptionalEnumWrapper_(__unwrappedValue)
